@@ -1,0 +1,1223 @@
+Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
+6,148,72,35,0,33.6,0.627,50,1
+1,85,66,29,0,26.6,0.351,31,0
+8,183,64,0,0,23.3,0.672,32,1
+1,89,66,23,94,28.1,0.167,21,0
+0,137,40,35,168,43.1,2.288,33,1
+5,116,74,0,0,25.6,0.201,30,0
+3,78,50,32,88,31.0,0.248,26,1
+10,115,0,0,0,35.3,0.134,29,0{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 226
+        },
+        "id": "FFm3kr4JZUaJ",
+        "outputId": "12149c54-24a1-470c-d2ad-a72ec418f25a"
+      },
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "   Pregnancies  Glucose  BloodPressure  SkinThickness  Insulin   BMI  \\\n",
+              "0            6      148             72             35        0  33.6   \n",
+              "1            1       85             66             29        0  26.6   \n",
+              "2            8      183             64              0        0  23.3   \n",
+              "3            1       89             66             23       94  28.1   \n",
+              "4            0      137             40             35      168  43.1   \n",
+              "\n",
+              "   DiabetesPedigreeFunction  Age  Outcome  \n",
+              "0                     0.627   50        1  \n",
+              "1                     0.351   31        0  \n",
+              "2                     0.672   32        1  \n",
+              "3                     0.167   21        0  \n",
+              "4                     2.288   33        1  "
+            ],
+            "text/html": [
+              "\n",
+              "  <div id=\"df-d79ba844-dc75-4065-8df7-b770a5ed62a5\" class=\"colab-df-container\">\n",
+              "    <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Pregnancies</th>\n",
+              "      <th>Glucose</th>\n",
+              "      <th>BloodPressure</th>\n",
+              "      <th>SkinThickness</th>\n",
+              "      <th>Insulin</th>\n",
+              "      <th>BMI</th>\n",
+              "      <th>DiabetesPedigreeFunction</th>\n",
+              "      <th>Age</th>\n",
+              "      <th>Outcome</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>6</td>\n",
+              "      <td>148</td>\n",
+              "      <td>72</td>\n",
+              "      <td>35</td>\n",
+              "      <td>0</td>\n",
+              "      <td>33.6</td>\n",
+              "      <td>0.627</td>\n",
+              "      <td>50</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>1</td>\n",
+              "      <td>85</td>\n",
+              "      <td>66</td>\n",
+              "      <td>29</td>\n",
+              "      <td>0</td>\n",
+              "      <td>26.6</td>\n",
+              "      <td>0.351</td>\n",
+              "      <td>31</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>8</td>\n",
+              "      <td>183</td>\n",
+              "      <td>64</td>\n",
+              "      <td>0</td>\n",
+              "      <td>0</td>\n",
+              "      <td>23.3</td>\n",
+              "      <td>0.672</td>\n",
+              "      <td>32</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>1</td>\n",
+              "      <td>89</td>\n",
+              "      <td>66</td>\n",
+              "      <td>23</td>\n",
+              "      <td>94</td>\n",
+              "      <td>28.1</td>\n",
+              "      <td>0.167</td>\n",
+              "      <td>21</td>\n",
+              "      <td>0</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>0</td>\n",
+              "      <td>137</td>\n",
+              "      <td>40</td>\n",
+              "      <td>35</td>\n",
+              "      <td>168</td>\n",
+              "      <td>43.1</td>\n",
+              "      <td>2.288</td>\n",
+              "      <td>33</td>\n",
+              "      <td>1</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "    <div class=\"colab-df-buttons\">\n",
+              "\n",
+              "  <div class=\"colab-df-container\">\n",
+              "    <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-d79ba844-dc75-4065-8df7-b770a5ed62a5')\"\n",
+              "            title=\"Convert this dataframe to an interactive table.\"\n",
+              "            style=\"display:none;\">\n",
+              "\n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\">\n",
+              "    <path d=\"M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z\"/>\n",
+              "  </svg>\n",
+              "    </button>\n",
+              "\n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-buttons div {\n",
+              "      margin-bottom: 4px;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "    <script>\n",
+              "      const buttonEl =\n",
+              "        document.querySelector('#df-d79ba844-dc75-4065-8df7-b770a5ed62a5 button.colab-df-convert');\n",
+              "      buttonEl.style.display =\n",
+              "        google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "      async function convertToInteractive(key) {\n",
+              "        const element = document.querySelector('#df-d79ba844-dc75-4065-8df7-b770a5ed62a5');\n",
+              "        const dataTable =\n",
+              "          await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                    [key], {});\n",
+              "        if (!dataTable) return;\n",
+              "\n",
+              "        const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "          '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "          + ' to learn more about interactive tables.';\n",
+              "        element.innerHTML = '';\n",
+              "        dataTable['output_type'] = 'display_data';\n",
+              "        await google.colab.output.renderOutput(dataTable, element);\n",
+              "        const docLink = document.createElement('div');\n",
+              "        docLink.innerHTML = docLinkHtml;\n",
+              "        element.appendChild(docLink);\n",
+              "      }\n",
+              "    </script>\n",
+              "  </div>\n",
+              "\n",
+              "\n",
+              "    <div id=\"df-90a0fd2b-851a-4004-b617-6e8432141293\">\n",
+              "      <button class=\"colab-df-quickchart\" onclick=\"quickchart('df-90a0fd2b-851a-4004-b617-6e8432141293')\"\n",
+              "                title=\"Suggest charts\"\n",
+              "                style=\"display:none;\">\n",
+              "\n",
+              "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "     width=\"24px\">\n",
+              "    <g>\n",
+              "        <path d=\"M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z\"/>\n",
+              "    </g>\n",
+              "</svg>\n",
+              "      </button>\n",
+              "\n",
+              "<style>\n",
+              "  .colab-df-quickchart {\n",
+              "      --bg-color: #E8F0FE;\n",
+              "      --fill-color: #1967D2;\n",
+              "      --hover-bg-color: #E2EBFA;\n",
+              "      --hover-fill-color: #174EA6;\n",
+              "      --disabled-fill-color: #AAA;\n",
+              "      --disabled-bg-color: #DDD;\n",
+              "  }\n",
+              "\n",
+              "  [theme=dark] .colab-df-quickchart {\n",
+              "      --bg-color: #3B4455;\n",
+              "      --fill-color: #D2E3FC;\n",
+              "      --hover-bg-color: #434B5C;\n",
+              "      --hover-fill-color: #FFFFFF;\n",
+              "      --disabled-bg-color: #3B4455;\n",
+              "      --disabled-fill-color: #666;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart {\n",
+              "    background-color: var(--bg-color);\n",
+              "    border: none;\n",
+              "    border-radius: 50%;\n",
+              "    cursor: pointer;\n",
+              "    display: none;\n",
+              "    fill: var(--fill-color);\n",
+              "    height: 32px;\n",
+              "    padding: 0;\n",
+              "    width: 32px;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart:hover {\n",
+              "    background-color: var(--hover-bg-color);\n",
+              "    box-shadow: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "    fill: var(--button-hover-fill-color);\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-quickchart-complete:disabled,\n",
+              "  .colab-df-quickchart-complete:disabled:hover {\n",
+              "    background-color: var(--disabled-bg-color);\n",
+              "    fill: var(--disabled-fill-color);\n",
+              "    box-shadow: none;\n",
+              "  }\n",
+              "\n",
+              "  .colab-df-spinner {\n",
+              "    border: 2px solid var(--fill-color);\n",
+              "    border-color: transparent;\n",
+              "    border-bottom-color: var(--fill-color);\n",
+              "    animation:\n",
+              "      spin 1s steps(1) infinite;\n",
+              "  }\n",
+              "\n",
+              "  @keyframes spin {\n",
+              "    0% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "      border-left-color: var(--fill-color);\n",
+              "    }\n",
+              "    20% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    30% {\n",
+              "      border-color: transparent;\n",
+              "      border-left-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    40% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-top-color: var(--fill-color);\n",
+              "    }\n",
+              "    60% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "    }\n",
+              "    80% {\n",
+              "      border-color: transparent;\n",
+              "      border-right-color: var(--fill-color);\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "    90% {\n",
+              "      border-color: transparent;\n",
+              "      border-bottom-color: var(--fill-color);\n",
+              "    }\n",
+              "  }\n",
+              "</style>\n",
+              "\n",
+              "      <script>\n",
+              "        async function quickchart(key) {\n",
+              "          const quickchartButtonEl =\n",
+              "            document.querySelector('#' + key + ' button');\n",
+              "          quickchartButtonEl.disabled = true;  // To prevent multiple clicks.\n",
+              "          quickchartButtonEl.classList.add('colab-df-spinner');\n",
+              "          try {\n",
+              "            const charts = await google.colab.kernel.invokeFunction(\n",
+              "                'suggestCharts', [key], {});\n",
+              "          } catch (error) {\n",
+              "            console.error('Error during call to suggestCharts:', error);\n",
+              "          }\n",
+              "          quickchartButtonEl.classList.remove('colab-df-spinner');\n",
+              "          quickchartButtonEl.classList.add('colab-df-quickchart-complete');\n",
+              "        }\n",
+              "        (() => {\n",
+              "          let quickchartButtonEl =\n",
+              "            document.querySelector('#df-90a0fd2b-851a-4004-b617-6e8432141293 button');\n",
+              "          quickchartButtonEl.style.display =\n",
+              "            google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "        })();\n",
+              "      </script>\n",
+              "    </div>\n",
+              "\n",
+              "    </div>\n",
+              "  </div>\n"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "dataframe",
+              "variable_name": "df",
+              "summary": "{\n  \"name\": \"df\",\n  \"rows\": 768,\n  \"fields\": [\n    {\n      \"column\": \"Pregnancies\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 3,\n        \"min\": 0,\n        \"max\": 17,\n        \"num_unique_values\": 17,\n        \"samples\": [\n          6,\n          1,\n          3\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Glucose\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 31,\n        \"min\": 0,\n        \"max\": 199,\n        \"num_unique_values\": 136,\n        \"samples\": [\n          151,\n          101,\n          112\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"BloodPressure\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 19,\n        \"min\": 0,\n        \"max\": 122,\n        \"num_unique_values\": 47,\n        \"samples\": [\n          86,\n          46,\n          85\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"SkinThickness\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 15,\n        \"min\": 0,\n        \"max\": 99,\n        \"num_unique_values\": 51,\n        \"samples\": [\n          7,\n          12,\n          48\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Insulin\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 115,\n        \"min\": 0,\n        \"max\": 846,\n        \"num_unique_values\": 186,\n        \"samples\": [\n          52,\n          41,\n          183\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"BMI\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 7.8841603203754405,\n        \"min\": 0.0,\n        \"max\": 67.1,\n        \"num_unique_values\": 248,\n        \"samples\": [\n          19.9,\n          31.0,\n          38.1\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"DiabetesPedigreeFunction\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0.33132859501277484,\n        \"min\": 0.078,\n        \"max\": 2.42,\n        \"num_unique_values\": 517,\n        \"samples\": [\n          1.731,\n          0.426,\n          0.138\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Age\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 11,\n        \"min\": 21,\n        \"max\": 81,\n        \"num_unique_values\": 52,\n        \"samples\": [\n          60,\n          47,\n          72\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    },\n    {\n      \"column\": \"Outcome\",\n      \"properties\": {\n        \"dtype\": \"number\",\n        \"std\": 0,\n        \"min\": 0,\n        \"max\": 1,\n        \"num_unique_values\": 2,\n        \"samples\": [\n          0,\n          1\n        ],\n        \"semantic_type\": \"\",\n        \"description\": \"\"\n      }\n    }\n  ]\n}"
+            }
+          },
+          "metadata": {},
+          "execution_count": 1
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "url = \"https://raw.githubusercontent.com/plotly/datasets/master/diabetes.csv\"\n",
+        "df = pd.read_csv(url)\n",
+        "\n",
+        "df.head()\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df = df.dropna()\n"
+      ],
+      "metadata": {
+        "id": "g2V_v3GrZtWf"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df.to_csv(\"diabetes_data.csv\", index=False)\n"
+      ],
+      "metadata": {
+        "id": "TmH2vhKmZ2JP"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "plt.figure()\n",
+        "plt.scatter(df[\"Age\"], df[\"Outcome\"])\n",
+        "plt.xlabel(\"Age\")\n",
+        "plt.ylabel(\"Diabetes Outcome\")\n",
+        "plt.title(\"Diabetes vs Age\")\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 472
+        },
+        "id": "ffWuzsyyZ6RO",
+        "outputId": "f0671ce5-058e-4fdd-e109-4c03d62a638f"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<Figure size 640x480 with 1 Axes>"
+            ],
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAjcAAAHHCAYAAABDUnkqAAAAOnRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjEwLjAsIGh0dHBzOi8vbWF0cGxvdGxpYi5vcmcvlHJYcgAAAAlwSFlzAAAPYQAAD2EBqD+naQAAQx1JREFUeJzt3XlYlPX+//HXsGMKuLGoKG5l5JomkZpplLl+1TpRaS5lp1JLo0Ux1zyK1qls1XMs8xyzJD1anCzNMO1YlFtaHvfEJRPQOCxuoMz9+8OfUyMwzODg4M3zcV1zXcx9fz73/b4/3DIv720shmEYAgAAMAkvTxcAAADgToQbAABgKoQbAABgKoQbAABgKoQbAABgKoQbAABgKoQbAABgKoQbAABgKoQbAABgKoQboAqbOnWqLBZLufpGRUWpT58+bq4IAC4f4QYwiYULF8pisdheAQEBqlevnnr06KHXX39d+fn5ni7RodOnT2vq1Klat26dp0upUG+//bYsFotiYmI8XQpgWoQbwGReeOEFLVq0SHPnztUTTzwhSRo7dqxatWqlH3/80a7txIkTdebMGU+UWczp06c1bdo004ebxYsXKyoqShs3btT+/fs9XQ5gSoQbwGR69uypwYMHa/jw4UpMTNTq1av15ZdfKisrS/369bMLMz4+PgoICPBgtVVLenq6vv32W73yyiuqW7euFi9e7OmSAFMi3ABVQPfu3TVp0iQdOnRI77//vm16SdfcvPfee+revbtCQ0Pl7++v6OhozZ07t9Rlf/HFF2rbtq0CAgIUHR2t5cuXF2uTk5OjsWPHKjIyUv7+/mrWrJlmz54tq9UqSTp48KDq1q0rSZo2bZrt1NrUqVNty9i9e7fuuece1apVSwEBAerQoYNSUlLs1nPu3DlNmzZNzZs3V0BAgGrXrq3OnTtrzZo1pda/efNmWSwW/eMf/yg2b/Xq1bJYLPr0008lSfn5+Ro7dqyioqLk7++v0NBQ3XHHHdq6dWupy/+jxYsXq2bNmurdu7fuueeeUsPNb7/9pgcffFBBQUEKCQnR0KFDtX37dlksFi1cuNCurTPjAlQ1hBuginjwwQclXQgjjsydO1eNGjXShAkT9PLLLysyMlIjR47UW2+9Vaztvn37FB8fr549eyopKUk+Pj7605/+ZBcmTp8+ra5du+r999/XkCFD9Prrr6tTp05KTExUQkKCJKlu3bq2ADVgwAAtWrRIixYt0sCBAyVJ//3vf3XzzTdr165dGj9+vF5++WVdc8016t+/v1asWGFb19SpUzVt2jR169ZNb775pp5//nk1bNjQYfjo0KGDmjRpoo8++qjYvOTkZNWsWVM9evSQJD322GOaO3eu7r77br399tt65plnFBgYqF27djkc04sWL16sgQMHys/PT/fff7/27dunTZs22bWxWq3q27evPvzwQw0dOlQzZszQsWPHNHTo0GLLc3ZcgCrHAGAK7733niHJ2LRpU6ltgoODjXbt2tneT5kyxbj0z8Dp06eL9evRo4fRpEkTu2mNGjUyJBn/+te/bNNyc3ONiIgIu3VMnz7duOaaa4y9e/fa9R8/frzh7e1tHD582DAMwzh+/LghyZgyZUqx9d9+++1Gq1atjLNnz9qmWa1W45ZbbjGaN29um9amTRujd+/epW5/aRITEw1fX18jOzvbNq2goMAICQkxHnroIdu04OBgY9SoUS4v3zAMY/PmzYYkY82aNbb6GzRoYIwZM8au3b/+9S9DkjFnzhzbtKKiIqN79+6GJOO9996zTXd2XICqhiM3QBVSvXr1Mu+aCgwMtP2cm5urEydOqGvXrjpw4IByc3Pt2tarV08DBgywvQ8KCtKQIUP0ww8/KCMjQ5K0dOlSdenSRTVr1tSJEydsr7i4OBUVFenrr792WE92drbWrl2re++9V/n5+bb+v/32m3r06KF9+/bp6NGjkqSQkBD997//1b59+1wal/j4eJ07d87ulNoXX3yhnJwcxcfH26aFhITo+++/16+//urS8qULR23CwsLUrVs3SZLFYlF8fLyWLFmioqIiW7tVq1bJ19dXjzzyiG2al5eXRo0aZbc8V8YFqGoIN0AVcvLkSdWoUcNhm2+++UZxcXG65pprFBISorp162rChAmSVCzcNGvWrNg1O9dee62kC9fRSBdOXa1atUp169a1e8XFxUmSsrKyHNazf/9+GYahSZMmFVvGlClT7JbxwgsvKCcnR9dee61atWqlZ599ttgdYiVp06aNWrRooeTkZNu05ORk1alTR927d7dNe/HFF7Vjxw5FRkaqY8eOmjp1qg4cOFDm8ouKirRkyRJ169ZN6enp2r9/v/bv36+YmBhlZmYqNTXV1vbQoUOKiIhQtWrV7JbRrFmzco8LUNX4eLoAAFfGL7/8otzc3GIfkn/0888/6/bbb1eLFi30yiuvKDIyUn5+fvrss8/06quv2i4AdoXVatUdd9yh5557rsT5F8OQo/6S9Mwzz9iufbnUxW269dZb9fPPP+uTTz7RF198oXfeeUevvvqq5s2bpxEjRjhcT3x8vGbMmKETJ06oRo0aSklJ0f333y8fn9//TN57773q0qWLVqxYoS+++EIvvfSSZs+ereXLl6tnz56lLnvt2rU6duyYlixZoiVLlhSbv3jxYt15550O67uUK+MCVDWEG6CKWLRokSSV+kEoSf/+979VUFCglJQUNWzY0Db9q6++KrH9xaMHfzx6s3fvXkkXnmAsSU2bNtXJkydtR2pKU9qTkps0aSJJ8vX1LXMZklSrVi0NHz5cw4cP18mTJ3Xrrbdq6tSpToWbadOm6V//+pfCwsKUl5en++67r1i7iIgIjRw5UiNHjlRWVpZuvPFGzZgxw2G4Wbx4sUJDQ0u8KHv58uVasWKF5s2bp8DAQDVq1EhfffWVTp8+bXf05tJn4rg6LkBVwmkpoApYu3atpk+frsaNG2vQoEGltvP29pYkGYZhm5abm6v33nuvxPa//vqr3V05eXl5+uc//6m2bdsqPDxc0oWjHWlpaVq9enWx/jk5OTp//rwk2T7Ic3Jy7NqEhobqtttu09/+9jcdO3as2DKOHz9u+/m3336zm1e9enU1a9ZMBQUFpW7zRddff71atWql5ORkJScnKyIiQrfeeqttflFRUbHTcqGhoapXr57D5Z85c0bLly9Xnz59dM899xR7jR49Wvn5+bbbt3v06KFz585p/vz5tmVYrdZiwciVcQGqGo7cACbz+eefa/fu3Tp//rwyMzO1du1arVmzRo0aNVJKSorDh/bdeeed8vPzU9++ffXoo4/q5MmTmj9/vkJDQ0v8AL322mv18MMPa9OmTQoLC9OCBQuUmZlpF4aeffZZpaSkqE+fPho2bJjat2+vU6dO6aefftKyZct08OBB1alTR4GBgYqOjlZycrKuvfZa1apVSy1btlTLli311ltvqXPnzmrVqpUeeeQRNWnSRJmZmUpLS9Mvv/yi7du3S5Kio6N12223qX379qpVq5Y2b96sZcuWafTo0U6NXXx8vCZPnqyAgAA9/PDD8vL6/f9/+fn5atCgge655x61adNG1atX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uecePfjgg7JYLBVVJwAAgFOcPnJjGIb69eunESNG6OjRo2rVqpVuuOEGHTp0SMOGDdOAAQMqsk4AAACnOH3kZuHChfr666+Vmpqqbt262c1bu3at+vfvr3/+858aMmSI24sEAABwltNHbj788ENNmDChWLCRpO7du2v8+PFavHixW4sDAABwldPh5scff9Rdd91V6vyePXtq+/btbikKAACgvJwON9nZ2QoLCyt1flhYmP73v/+5pSgAAIDycjrcFBUVycen9Et0vL29df78ebcUBQAAUF5OX1BsGIaGDRsmf3//EucXFBS4rSgAAIDycjrcDB06tMw23CkFAAA8zelw895771VkHQAAAG7B1y8AAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTIdwAAABTqRTh5q233lJUVJQCAgIUExOjjRs3ltp2/vz56tKli2rWrKmaNWsqLi7OYXsAAFC1eDzcJCcnKyEhQVOmTNHWrVvVpk0b9ejRQ1lZWSW2X7dune6//3599dVXSktLU2RkpO68804dPXr0ClcOAAAqI4thGIYnC4iJidFNN92kN998U5JktVoVGRmpJ554QuPHjy+zf1FRkWrWrKk333xTQ4YMKbN9Xl6egoODlZubq6CgoMuuHwAAVDxXPr89euSmsLBQW7ZsUVxcnG2al5eX4uLilJaW5tQyTp8+rXPnzqlWrVoVVSYAALiK+Hhy5SdOnFBRUZHCwsLspoeFhWn37t1OLWPcuHGqV6+eXUD6o4KCAhUUFNje5+Xllb9gAABQ6Xn8mpvLMWvWLC1ZskQrVqxQQEBAiW2SkpIUHBxse0VGRl7hKgEAwJXk0XBTp04deXt7KzMz0256ZmamwsPDHfb961//qlmzZumLL75Q69atS22XmJio3Nxc2+vIkSNuqR0AAFROHg03fn5+at++vVJTU23TrFarUlNTFRsbW2q/F198UdOnT9eqVavUoUMHh+vw9/dXUFCQ3QsAAJiXR6+5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GwAAYCqEGxf4+/trypQp8vf393QplR5j5RrGy3mMlfMYK+cxVs67Gsaqyl1QDAAAzI0jNwAAwFQINwAAwFQINwAAwFQINwAAwFQINyVISkrSTTfdpBo1aig0NFT9+/fXnj177NqcPXtWo0aNUu3atVW9enXdfffdyszM9FDFnjN37ly1bt3a9jCn2NhYff7557b5jFPpZs2aJYvForFjx9qmMV4XTJ06VRaLxe7VokUL23zGyd7Ro0c1ePBg1a5dW4GBgWrVqpU2b95sm28YhiZPnqyIiAgFBgYqLi5O+/bt82DFnhEVFVVsv7JYLBo1apQk9qs/Kioq0qRJk9S4cWMFBgaqadOmmj59ut33OlXq/cpAMT169DDee+89Y8eOHca2bduMXr16GQ0bNjROnjxpa/PYY48ZkZGRRmpqqrF582bj5ptvNm655RYPVu0ZKSkpxsqVK429e/cae/bsMSZMmGD4+voaO3bsMAyDcSrNxo0bjaioKKN169bGmDFjbNMZrwumTJli3HDDDcaxY8dsr+PHj9vmM06/y87ONho1amQMGzbM+P77740DBw4Yq1evNvbv329rM2vWLCM4ONj4+OOPje3btxv9+vUzGjdubJw5c8aDlV95WVlZdvvUmjVrDEnGV199ZRgG+9UfzZgxw6hdu7bx6aefGunp6cbSpUuN6tWrG6+99pqtTWXerwg3TsjKyjIkGevXrzcMwzBycnIMX19fY+nSpbY2u3btMiQZaWlpniqz0qhZs6bxzjvvME6lyM/PN5o3b26sWbPG6Nq1qy3cMF6/mzJlitGmTZsS5zFO9saNG2d07ty51PlWq9UIDw83XnrpJdu0nJwcw9/f3/jwww+vRImV1pgxY4ymTZsaVquV/eoSvXv3Nh566CG7aQMHDjQGDRpkGEbl3684LeWE3NxcSVKtWrUkSVu2bNG5c+cUFxdna9OiRQs1bNhQaWlpHqmxMigqKtKSJUt06tQpxcbGMk6lGDVqlHr37m03LhL71aX27dunevXqqUmTJho0aJAOHz4siXG6VEpKijp06KA//elPCg0NVbt27TR//nzb/PT0dGVkZNiNV3BwsGJiYqrkeF1UWFio999/Xw899JAsFgv71SVuueUWpaamau/evZKk7du3a8OGDerZs6ekyr9fVbkvznSV1WrV2LFj1alTJ7Vs2VKSlJGR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\n"
+          },
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "plt.savefig(\"chart.png\")\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 34
+        },
+        "id": "sLdFIE99cmp-",
+        "outputId": "bc78e72e-feb7-4040-b647-ed8d32f1a7f1"
+      },
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<Figure size 640x480 with 0 Axes>"
+            ]
+          },
+          "metadata": {}
+        }
+      ]
+    }
+  ]
+}
+2,197,70,45,543,30.5,0.158,53,1
+8,125,96,0,0,0.0,0.232,54,1
+4,110,92,0,0,37.6,0.191,30,0
+10,168,74,0,0,38.0,0.537,34,1
+10,139,80,0,0,27.1,1.441,57,0
+1,189,60,23,846,30.1,0.398,59,1
+5,166,72,19,175,25.8,0.587,51,1
+7,100,0,0,0,30.0,0.484,32,1
+0,118,84,47,230,45.8,0.551,31,1
+7,107,74,0,0,29.6,0.254,31,1
+1,103,30,38,83,43.3,0.183,33,0
+1,115,70,30,96,34.6,0.529,32,1
+3,126,88,41,235,39.3,0.704,27,0
+8,99,84,0,0,35.4,0.388,50,0
+7,196,90,0,0,39.8,0.451,41,1
+9,119,80,35,0,29.0,0.263,29,1
+11,143,94,33,146,36.6,0.254,51,1
+10,125,70,26,115,31.1,0.205,41,1
+7,147,76,0,0,39.4,0.257,43,1
+1,97,66,15,140,23.2,0.487,22,0
+13,145,82,19,110,22.2,0.245,57,0
+5,117,92,0,0,34.1,0.337,38,0
+5,109,75,26,0,36.0,0.546,60,0
+3,158,76,36,245,31.6,0.851,28,1
+3,88,58,11,54,24.8,0.267,22,0
+6,92,92,0,0,19.9,0.188,28,0
+10,122,78,31,0,27.6,0.512,45,0
+4,103,60,33,192,24.0,0.966,33,0
+11,138,76,0,0,33.2,0.42,35,0
+9,102,76,37,0,32.9,0.665,46,1
+2,90,68,42,0,38.2,0.503,27,1
+4,111,72,47,207,37.1,1.39,56,1
+3,180,64,25,70,34.0,0.271,26,0
+7,133,84,0,0,40.2,0.696,37,0
+7,106,92,18,0,22.7,0.235,48,0
+9,171,110,24,240,45.4,0.721,54,1
+7,159,64,0,0,27.4,0.294,40,0
+0,180,66,39,0,42.0,1.893,25,1
+1,146,56,0,0,29.7,0.564,29,0
+2,71,70,27,0,28.0,0.586,22,0
+7,103,66,32,0,39.1,0.344,31,1
+7,105,0,0,0,0.0,0.305,24,0
+1,103,80,11,82,19.4,0.491,22,0
+1,101,50,15,36,24.2,0.526,26,0
+5,88,66,21,23,24.4,0.342,30,0
+8,176,90,34,300,33.7,0.467,58,1
+7,150,66,42,342,34.7,0.718,42,0
+1,73,50,10,0,23.0,0.248,21,0
+7,187,68,39,304,37.7,0.254,41,1
+0,100,88,60,110,46.8,0.962,31,0
+0,146,82,0,0,40.5,1.781,44,0
+0,105,64,41,142,41.5,0.173,22,0
+2,84,0,0,0,0.0,0.304,21,0
+8,133,72,0,0,32.9,0.27,39,1
+5,44,62,0,0,25.0,0.587,36,0
+2,141,58,34,128,25.4,0.699,24,0
+7,114,66,0,0,32.8,0.258,42,1
+5,99,74,27,0,29.0,0.203,32,0
+0,109,88,30,0,32.5,0.855,38,1
+2,109,92,0,0,42.7,0.845,54,0
+1,95,66,13,38,19.6,0.334,25,0
+4,146,85,27,100,28.9,0.189,27,0
+2,100,66,20,90,32.9,0.867,28,1
+5,139,64,35,140,28.6,0.411,26,0
+13,126,90,0,0,43.4,0.583,42,1
+4,129,86,20,270,35.1,0.231,23,0
+1,79,75,30,0,32.0,0.396,22,0
+1,0,48,20,0,24.7,0.14,22,0
+7,62,78,0,0,32.6,0.391,41,0
+5,95,72,33,0,37.7,0.37,27,0
+0,131,0,0,0,43.2,0.27,26,1
+2,112,66,22,0,25.0,0.307,24,0
+3,113,44,13,0,22.4,0.14,22,0
+2,74,0,0,0,0.0,0.102,22,0
+7,83,78,26,71,29.3,0.767,36,0
+0,101,65,28,0,24.6,0.237,22,0
+5,137,108,0,0,48.8,0.227,37,1
+2,110,74,29,125,32.4,0.698,27,0
+13,106,72,54,0,36.6,0.178,45,0
+2,100,68,25,71,38.5,0.324,26,0
+15,136,70,32,110,37.1,0.153,43,1
+1,107,68,19,0,26.5,0.165,24,0
+1,80,55,0,0,19.1,0.258,21,0
+4,123,80,15,176,32.0,0.443,34,0
+7,81,78,40,48,46.7,0.261,42,0
+4,134,72,0,0,23.8,0.277,60,1
+2,142,82,18,64,24.7,0.761,21,0
+6,144,72,27,228,33.9,0.255,40,0
+2,92,62,28,0,31.6,0.13,24,0
+1,71,48,18,76,20.4,0.323,22,0
+6,93,50,30,64,28.7,0.356,23,0
+1,122,90,51,220,49.7,0.325,31,1
+1,163,72,0,0,39.0,1.222,33,1
+1,151,60,0,0,26.1,0.179,22,0
+0,125,96,0,0,22.5,0.262,21,0
+1,81,72,18,40,26.6,0.283,24,0
+2,85,65,0,0,39.6,0.93,27,0
+1,126,56,29,152,28.7,0.801,21,0
+1,96,122,0,0,22.4,0.207,27,0
+4,144,58,28,140,29.5,0.287,37,0
+3,83,58,31,18,34.3,0.336,25,0
+0,95,85,25,36,37.4,0.247,24,1
+3,171,72,33,135,33.3,0.199,24,1
+8,155,62,26,495,34.0,0.543,46,1
+1,89,76,34,37,31.2,0.192,23,0
+4,76,62,0,0,34.0,0.391,25,0
+7,160,54,32,175,30.5,0.588,39,1
+4,146,92,0,0,31.2,0.539,61,1
+5,124,74,0,0,34.0,0.22,38,1
+5,78,48,0,0,33.7,0.654,25,0
+4,97,60,23,0,28.2,0.443,22,0
+4,99,76,15,51,23.2,0.223,21,0
+0,162,76,56,100,53.2,0.759,25,1
+6,111,64,39,0,34.2,0.26,24,0
+2,107,74,30,100,33.6,0.404,23,0
+5,132,80,0,0,26.8,0.186,69,0
+0,113,76,0,0,33.3,0.278,23,1
+1,88,30,42,99,55.0,0.496,26,1
+3,120,70,30,135,42.9,0.452,30,0
+1,118,58,36,94,33.3,0.261,23,0
+1,117,88,24,145,34.5,0.403,40,1
+0,105,84,0,0,27.9,0.741,62,1
+4,173,70,14,168,29.7,0.361,33,1
+9,122,56,0,0,33.3,1.114,33,1
+3,170,64,37,225,34.5,0.356,30,1
+8,84,74,31,0,38.3,0.457,39,0
+2,96,68,13,49,21.1,0.647,26,0
+2,125,60,20,140,33.8,0.088,31,0
+0,100,70,26,50,30.8,0.597,21,0
+0,93,60,25,92,28.7,0.532,22,0
+0,129,80,0,0,31.2,0.703,29,0
+5,105,72,29,325,36.9,0.159,28,0
+3,128,78,0,0,21.1,0.268,55,0
+5,106,82,30,0,39.5,0.286,38,0
+2,108,52,26,63,32.5,0.318,22,0
+10,108,66,0,0,32.4,0.272,42,1
+4,154,62,31,284,32.8,0.237,23,0
+0,102,75,23,0,0.0,0.572,21,0
+9,57,80,37,0,32.8,0.096,41,0
+2,106,64,35,119,30.5,1.4,34,0
+5,147,78,0,0,33.7,0.218,65,0
+2,90,70,17,0,27.3,0.085,22,0
+1,136,74,50,204,37.4,0.399,24,0
+4,114,65,0,0,21.9,0.432,37,0
+9,156,86,28,155,34.3,1.189,42,1
+1,153,82,42,485,40.6,0.687,23,0
+8,188,78,0,0,47.9,0.137,43,1
+7,152,88,44,0,50.0,0.337,36,1
+2,99,52,15,94,24.6,0.637,21,0
+1,109,56,21,135,25.2,0.833,23,0
+2,88,74,19,53,29.0,0.229,22,0
+17,163,72,41,114,40.9,0.817,47,1
+4,151,90,38,0,29.7,0.294,36,0
+7,102,74,40,105,37.2,0.204,45,0
+0,114,80,34,285,44.2,0.167,27,0
+2,100,64,23,0,29.7,0.368,21,0
+0,131,88,0,0,31.6,0.743,32,1
+6,104,74,18,156,29.9,0.722,41,1
+3,148,66,25,0,32.5,0.256,22,0
+4,120,68,0,0,29.6,0.709,34,0
+4,110,66,0,0,31.9,0.471,29,0
+3,111,90,12,78,28.4,0.495,29,0
+6,102,82,0,0,30.8,0.18,36,1
+6,134,70,23,130,35.4,0.542,29,1
+2,87,0,23,0,28.9,0.773,25,0
+1,79,60,42,48,43.5,0.678,23,0
+2,75,64,24,55,29.7,0.37,33,0
+8,179,72,42,130,32.7,0.719,36,1
+6,85,78,0,0,31.2,0.382,42,0
+0,129,110,46,130,67.1,0.319,26,1
+5,143,78,0,0,45.0,0.19,47,0
+5,130,82,0,0,39.1,0.956,37,1
+6,87,80,0,0,23.2,0.084,32,0
+0,119,64,18,92,34.9,0.725,23,0
+1,0,74,20,23,27.7,0.299,21,0
+5,73,60,0,0,26.8,0.268,27,0
+4,141,74,0,0,27.6,0.244,40,0
+7,194,68,28,0,35.9,0.745,41,1
+8,181,68,36,495,30.1,0.615,60,1
+1,128,98,41,58,32.0,1.321,33,1
+8,109,76,39,114,27.9,0.64,31,1
+5,139,80,35,160,31.6,0.361,25,1
+3,111,62,0,0,22.6,0.142,21,0
+9,123,70,44,94,33.1,0.374,40,0
+7,159,66,0,0,30.4,0.383,36,1
+11,135,0,0,0,52.3,0.578,40,1
+8,85,55,20,0,24.4,0.136,42,0
+5,158,84,41,210,39.4,0.395,29,1
+1,105,58,0,0,24.3,0.187,21,0
+3,107,62,13,48,22.9,0.678,23,1
+4,109,64,44,99,34.8,0.905,26,1
+4,148,60,27,318,30.9,0.15,29,1
+0,113,80,16,0,31.0,0.874,21,0
+1,138,82,0,0,40.1,0.236,28,0
+0,108,68,20,0,27.3,0.787,32,0
+2,99,70,16,44,20.4,0.235,27,0
+6,103,72,32,190,37.7,0.324,55,0
+5,111,72,28,0,23.9,0.407,27,0
+8,196,76,29,280,37.5,0.605,57,1
+5,162,104,0,0,37.7,0.151,52,1
+1,96,64,27,87,33.2,0.289,21,0
+7,184,84,33,0,35.5,0.355,41,1
+2,81,60,22,0,27.7,0.29,25,0
+0,147,85,54,0,42.8,0.375,24,0
+7,179,95,31,0,34.2,0.164,60,0
+0,140,65,26,130,42.6,0.431,24,1
+9,112,82,32,175,34.2,0.26,36,1
+12,151,70,40,271,41.8,0.742,38,1
+5,109,62,41,129,35.8,0.514,25,1
+6,125,68,30,120,30.0,0.464,32,0
+5,85,74,22,0,29.0,1.224,32,1
+5,112,66,0,0,37.8,0.261,41,1
+0,177,60,29,478,34.6,1.072,21,1
+2,158,90,0,0,31.6,0.805,66,1
+7,119,0,0,0,25.2,0.209,37,0
+7,142,60,33,190,28.8,0.687,61,0
+1,100,66,15,56,23.6,0.666,26,0
+1,87,78,27,32,34.6,0.101,22,0
+0,101,76,0,0,35.7,0.198,26,0
+3,162,52,38,0,37.2,0.652,24,1
+4,197,70,39,744,36.7,2.329,31,0
+0,117,80,31,53,45.2,0.089,24,0
+4,142,86,0,0,44.0,0.645,22,1
+6,134,80,37,370,46.2,0.238,46,1
+1,79,80,25,37,25.4,0.583,22,0
+4,122,68,0,0,35.0,0.394,29,0
+3,74,68,28,45,29.7,0.293,23,0
+4,171,72,0,0,43.6,0.479,26,1
+7,181,84,21,192,35.9,0.586,51,1
+0,179,90,27,0,44.1,0.686,23,1
+9,164,84,21,0,30.8,0.831,32,1
+0,104,76,0,0,18.4,0.582,27,0
+1,91,64,24,0,29.2,0.192,21,0
+4,91,70,32,88,33.1,0.446,22,0
+3,139,54,0,0,25.6,0.402,22,1
+6,119,50,22,176,27.1,1.318,33,1
+2,146,76,35,194,38.2,0.329,29,0
+9,184,85,15,0,30.0,1.213,49,1
+10,122,68,0,0,31.2,0.258,41,0
+0,165,90,33,680,52.3,0.427,23,0
+9,124,70,33,402,35.4,0.282,34,0
+1,111,86,19,0,30.1,0.143,23,0
+9,106,52,0,0,31.2,0.38,42,0
+2,129,84,0,0,28.0,0.284,27,0
+2,90,80,14,55,24.4,0.249,24,0
+0,86,68,32,0,35.8,0.238,25,0
+12,92,62,7,258,27.6,0.926,44,1
+1,113,64,35,0,33.6,0.543,21,1
+3,111,56,39,0,30.1,0.557,30,0
+2,114,68,22,0,28.7,0.092,25,0
+1,193,50,16,375,25.9,0.655,24,0
+11,155,76,28,150,33.3,1.353,51,1
+3,191,68,15,130,30.9,0.299,34,0
+3,141,0,0,0,30.0,0.761,27,1
+4,95,70,32,0,32.1,0.612,24,0
+3,142,80,15,0,32.4,0.2,63,0
+4,123,62,0,0,32.0,0.226,35,1
+5,96,74,18,67,33.6,0.997,43,0
+0,138,0,0,0,36.3,0.933,25,1
+2,128,64,42,0,40.0,1.101,24,0
+0,102,52,0,0,25.1,0.078,21,0
+2,146,0,0,0,27.5,0.24,28,1
+10,101,86,37,0,45.6,1.136,38,1
+2,108,62,32,56,25.2,0.128,21,0
+3,122,78,0,0,23.0,0.254,40,0
+1,71,78,50,45,33.2,0.422,21,0
+13,106,70,0,0,34.2,0.251,52,0
+2,100,70,52,57,40.5,0.677,25,0
+7,106,60,24,0,26.5,0.296,29,1
+0,104,64,23,116,27.8,0.454,23,0
+5,114,74,0,0,24.9,0.744,57,0
+2,108,62,10,278,25.3,0.881,22,0
+0,146,70,0,0,37.9,0.334,28,1
+10,129,76,28,122,35.9,0.28,39,0
+7,133,88,15,155,32.4,0.262,37,0
+7,161,86,0,0,30.4,0.165,47,1
+2,108,80,0,0,27.0,0.259,52,1
+7,136,74,26,135,26.0,0.647,51,0
+5,155,84,44,545,38.7,0.619,34,0
+1,119,86,39,220,45.6,0.808,29,1
+4,96,56,17,49,20.8,0.34,26,0
+5,108,72,43,75,36.1,0.263,33,0
+0,78,88,29,40,36.9,0.434,21,0
+0,107,62,30,74,36.6,0.757,25,1
+2,128,78,37,182,43.3,1.224,31,1
+1,128,48,45,194,40.5,0.613,24,1
+0,161,50,0,0,21.9,0.254,65,0
+6,151,62,31,120,35.5,0.692,28,0
+2,146,70,38,360,28.0,0.337,29,1
+0,126,84,29,215,30.7,0.52,24,0
+14,100,78,25,184,36.6,0.412,46,1
+8,112,72,0,0,23.6,0.84,58,0
+0,167,0,0,0,32.3,0.839,30,1
+2,144,58,33,135,31.6,0.422,25,1
+5,77,82,41,42,35.8,0.156,35,0
+5,115,98,0,0,52.9,0.209,28,1
+3,150,76,0,0,21.0,0.207,37,0
+2,120,76,37,105,39.7,0.215,29,0
+10,161,68,23,132,25.5,0.326,47,1
+0,137,68,14,148,24.8,0.143,21,0
+0,128,68,19,180,30.5,1.391,25,1
+2,124,68,28,205,32.9,0.875,30,1
+6,80,66,30,0,26.2,0.313,41,0
+0,106,70,37,148,39.4,0.605,22,0
+2,155,74,17,96,26.6,0.433,27,1
+3,113,50,10,85,29.5,0.626,25,0
+7,109,80,31,0,35.9,1.127,43,1
+2,112,68,22,94,34.1,0.315,26,0
+3,99,80,11,64,19.3,0.284,30,0
+3,182,74,0,0,30.5,0.345,29,1
+3,115,66,39,140,38.1,0.15,28,0
+6,194,78,0,0,23.5,0.129,59,1
+4,129,60,12,231,27.5,0.527,31,0
+3,112,74,30,0,31.6,0.197,25,1
+0,124,70,20,0,27.4,0.254,36,1
+13,152,90,33,29,26.8,0.731,43,1
+2,112,75,32,0,35.7,0.148,21,0
+1,157,72,21,168,25.6,0.123,24,0
+1,122,64,32,156,35.1,0.692,30,1
+10,179,70,0,0,35.1,0.2,37,0
+2,102,86,36,120,45.5,0.127,23,1
+6,105,70,32,68,30.8,0.122,37,0
+8,118,72,19,0,23.1,1.476,46,0
+2,87,58,16,52,32.7,0.166,25,0
+1,180,0,0,0,43.3,0.282,41,1
+12,106,80,0,0,23.6,0.137,44,0
+1,95,60,18,58,23.9,0.26,22,0
+0,165,76,43,255,47.9,0.259,26,0
+0,117,0,0,0,33.8,0.932,44,0
+5,115,76,0,0,31.2,0.343,44,1
+9,152,78,34,171,34.2,0.893,33,1
+7,178,84,0,0,39.9,0.331,41,1
+1,130,70,13,105,25.9,0.472,22,0
+1,95,74,21,73,25.9,0.673,36,0
+1,0,68,35,0,32.0,0.389,22,0
+5,122,86,0,0,34.7,0.29,33,0
+8,95,72,0,0,36.8,0.485,57,0
+8,126,88,36,108,38.5,0.349,49,0
+1,139,46,19,83,28.7,0.654,22,0
+3,116,0,0,0,23.5,0.187,23,0
+3,99,62,19,74,21.8,0.279,26,0
+5,0,80,32,0,41.0,0.346,37,1
+4,92,80,0,0,42.2,0.237,29,0
+4,137,84,0,0,31.2,0.252,30,0
+3,61,82,28,0,34.4,0.243,46,0
+1,90,62,12,43,27.2,0.58,24,0
+3,90,78,0,0,42.7,0.559,21,0
+9,165,88,0,0,30.4,0.302,49,1
+1,125,50,40,167,33.3,0.962,28,1
+13,129,0,30,0,39.9,0.569,44,1
+12,88,74,40,54,35.3,0.378,48,0
+1,196,76,36,249,36.5,0.875,29,1
+5,189,64,33,325,31.2,0.583,29,1
+5,158,70,0,0,29.8,0.207,63,0
+5,103,108,37,0,39.2,0.305,65,0
+4,146,78,0,0,38.5,0.52,67,1
+4,147,74,25,293,34.9,0.385,30,0
+5,99,54,28,83,34.0,0.499,30,0
+6,124,72,0,0,27.6,0.368,29,1
+0,101,64,17,0,21.0,0.252,21,0
+3,81,86,16,66,27.5,0.306,22,0
+1,133,102,28,140,32.8,0.234,45,1
+3,173,82,48,465,38.4,2.137,25,1
+0,118,64,23,89,0.0,1.731,21,0
+0,84,64,22,66,35.8,0.545,21,0
+2,105,58,40,94,34.9,0.225,25,0
+2,122,52,43,158,36.2,0.816,28,0
+12,140,82,43,325,39.2,0.528,58,1
+0,98,82,15,84,25.2,0.299,22,0
+1,87,60,37,75,37.2,0.509,22,0
+4,156,75,0,0,48.3,0.238,32,1
+0,93,100,39,72,43.4,1.021,35,0
+1,107,72,30,82,30.8,0.821,24,0
+0,105,68,22,0,20.0,0.236,22,0
+1,109,60,8,182,25.4,0.947,21,0
+1,90,62,18,59,25.1,1.268,25,0
+1,125,70,24,110,24.3,0.221,25,0
+1,119,54,13,50,22.3,0.205,24,0
+5,116,74,29,0,32.3,0.66,35,1
+8,105,100,36,0,43.3,0.239,45,1
+5,144,82,26,285,32.0,0.452,58,1
+3,100,68,23,81,31.6,0.949,28,0
+1,100,66,29,196,32.0,0.444,42,0
+5,166,76,0,0,45.7,0.34,27,1
+1,131,64,14,415,23.7,0.389,21,0
+4,116,72,12,87,22.1,0.463,37,0
+4,158,78,0,0,32.9,0.803,31,1
+2,127,58,24,275,27.7,1.6,25,0
+3,96,56,34,115,24.7,0.944,39,0
+0,131,66,40,0,34.3,0.196,22,1
+3,82,70,0,0,21.1,0.389,25,0
+3,193,70,31,0,34.9,0.241,25,1
+4,95,64,0,0,32.0,0.161,31,1
+6,137,61,0,0,24.2,0.151,55,0
+5,136,84,41,88,35.0,0.286,35,1
+9,72,78,25,0,31.6,0.28,38,0
+5,168,64,0,0,32.9,0.135,41,1
+2,123,48,32,165,42.1,0.52,26,0
+4,115,72,0,0,28.9,0.376,46,1
+0,101,62,0,0,21.9,0.336,25,0
+8,197,74,0,0,25.9,1.191,39,1
+1,172,68,49,579,42.4,0.702,28,1
+6,102,90,39,0,35.7,0.674,28,0
+1,112,72,30,176,34.4,0.528,25,0
+1,143,84,23,310,42.4,1.076,22,0
+1,143,74,22,61,26.2,0.256,21,0
+0,138,60,35,167,34.6,0.534,21,1
+3,173,84,33,474,35.7,0.258,22,1
+1,97,68,21,0,27.2,1.095,22,0
+4,144,82,32,0,38.5,0.554,37,1
+1,83,68,0,0,18.2,0.624,27,0
+3,129,64,29,115,26.4,0.219,28,1
+1,119,88,41,170,45.3,0.507,26,0
+2,94,68,18,76,26.0,0.561,21,0
+0,102,64,46,78,40.6,0.496,21,0
+2,115,64,22,0,30.8,0.421,21,0
+8,151,78,32,210,42.9,0.516,36,1
+4,184,78,39,277,37.0,0.264,31,1
+0,94,0,0,0,0.0,0.256,25,0
+1,181,64,30,180,34.1,0.328,38,1
+0,135,94,46,145,40.6,0.284,26,0
+1,95,82,25,180,35.0,0.233,43,1
+2,99,0,0,0,22.2,0.108,23,0
+3,89,74,16,85,30.4,0.551,38,0
+1,80,74,11,60,30.0,0.527,22,0
+2,139,75,0,0,25.6,0.167,29,0
+1,90,68,8,0,24.5,1.138,36,0
+0,141,0,0,0,42.4,0.205,29,1
+12,140,85,33,0,37.4,0.244,41,0
+5,147,75,0,0,29.9,0.434,28,0
+1,97,70,15,0,18.2,0.147,21,0
+6,107,88,0,0,36.8,0.727,31,0
+0,189,104,25,0,34.3,0.435,41,1
+2,83,66,23,50,32.2,0.497,22,0
+4,117,64,27,120,33.2,0.23,24,0
+8,108,70,0,0,30.5,0.955,33,1
+4,117,62,12,0,29.7,0.38,30,1
+0,180,78,63,14,59.4,2.42,25,1
+1,100,72,12,70,25.3,0.658,28,0
+0,95,80,45,92,36.5,0.33,26,0
+0,104,64,37,64,33.6,0.51,22,1
+0,120,74,18,63,30.5,0.285,26,0
+1,82,64,13,95,21.2,0.415,23,0
+2,134,70,0,0,28.9,0.542,23,1
+0,91,68,32,210,39.9,0.381,25,0
+2,119,0,0,0,19.6,0.832,72,0
+2,100,54,28,105,37.8,0.498,24,0
+14,175,62,30,0,33.6,0.212,38,1
+1,135,54,0,0,26.7,0.687,62,0
+5,86,68,28,71,30.2,0.364,24,0
+10,148,84,48,237,37.6,1.001,51,1
+9,134,74,33,60,25.9,0.46,81,0
+9,120,72,22,56,20.8,0.733,48,0
+1,71,62,0,0,21.8,0.416,26,0
+8,74,70,40,49,35.3,0.705,39,0
+5,88,78,30,0,27.6,0.258,37,0
+10,115,98,0,0,24.0,1.022,34,0
+0,124,56,13,105,21.8,0.452,21,0
+0,74,52,10,36,27.8,0.269,22,0
+0,97,64,36,100,36.8,0.6,25,0
+8,120,0,0,0,30.0,0.183,38,1
+6,154,78,41,140,46.1,0.571,27,0
+1,144,82,40,0,41.3,0.607,28,0
+0,137,70,38,0,33.2,0.17,22,0
+0,119,66,27,0,38.8,0.259,22,0
+7,136,90,0,0,29.9,0.21,50,0
+4,114,64,0,0,28.9,0.126,24,0
+0,137,84,27,0,27.3,0.231,59,0
+2,105,80,45,191,33.7,0.711,29,1
+7,114,76,17,110,23.8,0.466,31,0
+8,126,74,38,75,25.9,0.162,39,0
+4,132,86,31,0,28.0,0.419,63,0
+3,158,70,30,328,35.5,0.344,35,1
+0,123,88,37,0,35.2,0.197,29,0
+4,85,58,22,49,27.8,0.306,28,0
+0,84,82,31,125,38.2,0.233,23,0
+0,145,0,0,0,44.2,0.63,31,1
+0,135,68,42,250,42.3,0.365,24,1
+1,139,62,41,480,40.7,0.536,21,0
+0,173,78,32,265,46.5,1.159,58,0
+4,99,72,17,0,25.6,0.294,28,0
+8,194,80,0,0,26.1,0.551,67,0
+2,83,65,28,66,36.8,0.629,24,0
+2,89,90,30,0,33.5,0.292,42,0
+4,99,68,38,0,32.8,0.145,33,0
+4,125,70,18,122,28.9,1.144,45,1
+3,80,0,0,0,0.0,0.174,22,0
+6,166,74,0,0,26.6,0.304,66,0
+5,110,68,0,0,26.0,0.292,30,0
+2,81,72,15,76,30.1,0.547,25,0
+7,195,70,33,145,25.1,0.163,55,1
+6,154,74,32,193,29.3,0.839,39,0
+2,117,90,19,71,25.2,0.313,21,0
+3,84,72,32,0,37.2,0.267,28,0
+6,0,68,41,0,39.0,0.727,41,1
+7,94,64,25,79,33.3,0.738,41,0
+3,96,78,39,0,37.3,0.238,40,0
+10,75,82,0,0,33.3,0.263,38,0
+0,180,90,26,90,36.5,0.314,35,1
+1,130,60,23,170,28.6,0.692,21,0
+2,84,50,23,76,30.4,0.968,21,0
+8,120,78,0,0,25.0,0.409,64,0
+12,84,72,31,0,29.7,0.297,46,1
+0,139,62,17,210,22.1,0.207,21,0
+9,91,68,0,0,24.2,0.2,58,0
+2,91,62,0,0,27.3,0.525,22,0
+3,99,54,19,86,25.6,0.154,24,0
+3,163,70,18,105,31.6,0.268,28,1
+9,145,88,34,165,30.3,0.771,53,1
+7,125,86,0,0,37.6,0.304,51,0
+13,76,60,0,0,32.8,0.18,41,0
+6,129,90,7,326,19.6,0.582,60,0
+2,68,70,32,66,25.0,0.187,25,0
+3,124,80,33,130,33.2,0.305,26,0
+6,114,0,0,0,0.0,0.189,26,0
+9,130,70,0,0,34.2,0.652,45,1
+3,125,58,0,0,31.6,0.151,24,0
+3,87,60,18,0,21.8,0.444,21,0
+1,97,64,19,82,18.2,0.299,21,0
+3,116,74,15,105,26.3,0.107,24,0
+0,117,66,31,188,30.8,0.493,22,0
+0,111,65,0,0,24.6,0.66,31,0
+2,122,60,18,106,29.8,0.717,22,0
+0,107,76,0,0,45.3,0.686,24,0
+1,86,66,52,65,41.3,0.917,29,0
+6,91,0,0,0,29.8,0.501,31,0
+1,77,56,30,56,33.3,1.251,24,0
+4,132,0,0,0,32.9,0.302,23,1
+0,105,90,0,0,29.6,0.197,46,0
+0,57,60,0,0,21.7,0.735,67,0
+0,127,80,37,210,36.3,0.804,23,0
+3,129,92,49,155,36.4,0.968,32,1
+8,100,74,40,215,39.4,0.661,43,1
+3,128,72,25,190,32.4,0.549,27,1
+10,90,85,32,0,34.9,0.825,56,1
+4,84,90,23,56,39.5,0.159,25,0
+1,88,78,29,76,32.0,0.365,29,0
+8,186,90,35,225,34.5,0.423,37,1
+5,187,76,27,207,43.6,1.034,53,1
+4,131,68,21,166,33.1,0.16,28,0
+1,164,82,43,67,32.8,0.341,50,0
+4,189,110,31,0,28.5,0.68,37,0
+1,116,70,28,0,27.4,0.204,21,0
+3,84,68,30,106,31.9,0.591,25,0
+6,114,88,0,0,27.8,0.247,66,0
+1,88,62,24,44,29.9,0.422,23,0
+1,84,64,23,115,36.9,0.471,28,0
+7,124,70,33,215,25.5,0.161,37,0
+1,97,70,40,0,38.1,0.218,30,0
+8,110,76,0,0,27.8,0.237,58,0
+11,103,68,40,0,46.2,0.126,42,0
+11,85,74,0,0,30.1,0.3,35,0
+6,125,76,0,0,33.8,0.121,54,1
+0,198,66,32,274,41.3,0.502,28,1
+1,87,68,34,77,37.6,0.401,24,0
+6,99,60,19,54,26.9,0.497,32,0
+0,91,80,0,0,32.4,0.601,27,0
+2,95,54,14,88,26.1,0.748,22,0
+1,99,72,30,18,38.6,0.412,21,0
+6,92,62,32,126,32.0,0.085,46,0
+4,154,72,29,126,31.3,0.338,37,0
+0,121,66,30,165,34.3,0.203,33,1
+3,78,70,0,0,32.5,0.27,39,0
+2,130,96,0,0,22.6,0.268,21,0
+3,111,58,31,44,29.5,0.43,22,0
+2,98,60,17,120,34.7,0.198,22,0
+1,143,86,30,330,30.1,0.892,23,0
+1,119,44,47,63,35.5,0.28,25,0
+6,108,44,20,130,24.0,0.813,35,0
+2,118,80,0,0,42.9,0.693,21,1
+10,133,68,0,0,27.0,0.245,36,0
+2,197,70,99,0,34.7,0.575,62,1
+0,151,90,46,0,42.1,0.371,21,1
+6,109,60,27,0,25.0,0.206,27,0
+12,121,78,17,0,26.5,0.259,62,0
+8,100,76,0,0,38.7,0.19,42,0
+8,124,76,24,600,28.7,0.687,52,1
+1,93,56,11,0,22.5,0.417,22,0
+8,143,66,0,0,34.9,0.129,41,1
+6,103,66,0,0,24.3,0.249,29,0
+3,176,86,27,156,33.3,1.154,52,1
+0,73,0,0,0,21.1,0.342,25,0
+11,111,84,40,0,46.8,0.925,45,1
+2,112,78,50,140,39.4,0.175,24,0
+3,132,80,0,0,34.4,0.402,44,1
+2,82,52,22,115,28.5,1.699,25,0
+6,123,72,45,230,33.6,0.733,34,0
+0,188,82,14,185,32.0,0.682,22,1
+0,67,76,0,0,45.3,0.194,46,0
+1,89,24,19,25,27.8,0.559,21,0
+1,173,74,0,0,36.8,0.088,38,1
+1,109,38,18,120,23.1,0.407,26,0
+1,108,88,19,0,27.1,0.4,24,0
+6,96,0,0,0,23.7,0.19,28,0
+1,124,74,36,0,27.8,0.1,30,0
+7,150,78,29,126,35.2,0.692,54,1
+4,183,0,0,0,28.4,0.212,36,1
+1,124,60,32,0,35.8,0.514,21,0
+1,181,78,42,293,40.0,1.258,22,1
+1,92,62,25,41,19.5,0.482,25,0
+0,152,82,39,272,41.5,0.27,27,0
+1,111,62,13,182,24.0,0.138,23,0
+3,106,54,21,158,30.9,0.292,24,0
+3,174,58,22,194,32.9,0.593,36,1
+7,168,88,42,321,38.2,0.787,40,1
+6,105,80,28,0,32.5,0.878,26,0
+11,138,74,26,144,36.1,0.557,50,1
+3,106,72,0,0,25.8,0.207,27,0
+6,117,96,0,0,28.7,0.157,30,0
+2,68,62,13,15,20.1,0.257,23,0
+9,112,82,24,0,28.2,1.282,50,1
+0,119,0,0,0,32.4,0.141,24,1
+2,112,86,42,160,38.4,0.246,28,0
+2,92,76,20,0,24.2,1.698,28,0
+6,183,94,0,0,40.8,1.461,45,0
+0,94,70,27,115,43.5,0.347,21,0
+2,108,64,0,0,30.8,0.158,21,0
+4,90,88,47,54,37.7,0.362,29,0
+0,125,68,0,0,24.7,0.206,21,0
+0,132,78,0,0,32.4,0.393,21,0
+5,128,80,0,0,34.6,0.144,45,0
+4,94,65,22,0,24.7,0.148,21,0
+7,114,64,0,0,27.4,0.732,34,1
+0,102,78,40,90,34.5,0.238,24,0
+2,111,60,0,0,26.2,0.343,23,0
+1,128,82,17,183,27.5,0.115,22,0
+10,92,62,0,0,25.9,0.167,31,0
+13,104,72,0,0,31.2,0.465,38,1
+5,104,74,0,0,28.8,0.153,48,0
+2,94,76,18,66,31.6,0.649,23,0
+7,97,76,32,91,40.9,0.871,32,1
+1,100,74,12,46,19.5,0.149,28,0
+0,102,86,17,105,29.3,0.695,27,0
+4,128,70,0,0,34.3,0.303,24,0
+6,147,80,0,0,29.5,0.178,50,1
+4,90,0,0,0,28.0,0.61,31,0
+3,103,72,30,152,27.6,0.73,27,0
+2,157,74,35,440,39.4,0.134,30,0
+1,167,74,17,144,23.4,0.447,33,1
+0,179,50,36,159,37.8,0.455,22,1
+11,136,84,35,130,28.3,0.26,42,1
+0,107,60,25,0,26.4,0.133,23,0
+1,91,54,25,100,25.2,0.234,23,0
+1,117,60,23,106,33.8,0.466,27,0
+5,123,74,40,77,34.1,0.269,28,0
+2,120,54,0,0,26.8,0.455,27,0
+1,106,70,28,135,34.2,0.142,22,0
+2,155,52,27,540,38.7,0.24,25,1
+2,101,58,35,90,21.8,0.155,22,0
+1,120,80,48,200,38.9,1.162,41,0
+11,127,106,0,0,39.0,0.19,51,0
+3,80,82,31,70,34.2,1.292,27,1
+10,162,84,0,0,27.7,0.182,54,0
+1,199,76,43,0,42.9,1.394,22,1
+8,167,106,46,231,37.6,0.165,43,1
+9,145,80,46,130,37.9,0.637,40,1
+6,115,60,39,0,33.7,0.245,40,1
+1,112,80,45,132,34.8,0.217,24,0
+4,145,82,18,0,32.5,0.235,70,1
+10,111,70,27,0,27.5,0.141,40,1
+6,98,58,33,190,34.0,0.43,43,0
+9,154,78,30,100,30.9,0.164,45,0
+6,165,68,26,168,33.6,0.631,49,0
+1,99,58,10,0,25.4,0.551,21,0
+10,68,106,23,49,35.5,0.285,47,0
+3,123,100,35,240,57.3,0.88,22,0
+8,91,82,0,0,35.6,0.587,68,0
+6,195,70,0,0,30.9,0.328,31,1
+9,156,86,0,0,24.8,0.23,53,1
+0,93,60,0,0,35.3,0.263,25,0
+3,121,52,0,0,36.0,0.127,25,1
+2,101,58,17,265,24.2,0.614,23,0
+2,56,56,28,45,24.2,0.332,22,0
+0,162,76,36,0,49.6,0.364,26,1
+0,95,64,39,105,44.6,0.366,22,0
+4,125,80,0,0,32.3,0.536,27,1
+5,136,82,0,0,0.0,0.64,69,0
+2,129,74,26,205,33.2,0.591,25,0
+3,130,64,0,0,23.1,0.314,22,0
+1,107,50,19,0,28.3,0.181,29,0
+1,140,74,26,180,24.1,0.828,23,0
+1,144,82,46,180,46.1,0.335,46,1
+8,107,80,0,0,24.6,0.856,34,0
+13,158,114,0,0,42.3,0.257,44,1
+2,121,70,32,95,39.1,0.886,23,0
+7,129,68,49,125,38.5,0.439,43,1
+2,90,60,0,0,23.5,0.191,25,0
+7,142,90,24,480,30.4,0.128,43,1
+3,169,74,19,125,29.9,0.268,31,1
+0,99,0,0,0,25.0,0.253,22,0
+4,127,88,11,155,34.5,0.598,28,0
+4,118,70,0,0,44.5,0.904,26,0
+2,122,76,27,200,35.9,0.483,26,0
+6,125,78,31,0,27.6,0.565,49,1
+1,168,88,29,0,35.0,0.905,52,1
+2,129,0,0,0,38.5,0.304,41,0
+4,110,76,20,100,28.4,0.118,27,0
+6,80,80,36,0,39.8,0.177,28,0
+10,115,0,0,0,0.0,0.261,30,1
+2,127,46,21,335,34.4,0.176,22,0
+9,164,78,0,0,32.8,0.148,45,1
+2,93,64,32,160,38.0,0.674,23,1
+3,158,64,13,387,31.2,0.295,24,0
+5,126,78,27,22,29.6,0.439,40,0
+10,129,62,36,0,41.2,0.441,38,1
+0,134,58,20,291,26.4,0.352,21,0
+3,102,74,0,0,29.5,0.121,32,0
+7,187,50,33,392,33.9,0.826,34,1
+3,173,78,39,185,33.8,0.97,31,1
+10,94,72,18,0,23.1,0.595,56,0
+1,108,60,46,178,35.5,0.415,24,0
+5,97,76,27,0,35.6,0.378,52,1
+4,83,86,19,0,29.3,0.317,34,0
+1,114,66,36,200,38.1,0.289,21,0
+1,149,68,29,127,29.3,0.349,42,1
+5,117,86,30,105,39.1,0.251,42,0
+1,111,94,0,0,32.8,0.265,45,0
+4,112,78,40,0,39.4,0.236,38,0
+1,116,78,29,180,36.1,0.496,25,0
+0,141,84,26,0,32.4,0.433,22,0
+2,175,88,0,0,22.9,0.326,22,0
+2,92,52,0,0,30.1,0.141,22,0
+3,130,78,23,79,28.4,0.323,34,1
+8,120,86,0,0,28.4,0.259,22,1
+2,174,88,37,120,44.5,0.646,24,1
+2,106,56,27,165,29.0,0.426,22,0
+2,105,75,0,0,23.3,0.56,53,0
+4,95,60,32,0,35.4,0.284,28,0
+0,126,86,27,120,27.4,0.515,21,0
+8,65,72,23,0,32.0,0.6,42,0
+2,99,60,17,160,36.6,0.453,21,0
+1,102,74,0,0,39.5,0.293,42,1
+11,120,80,37,150,42.3,0.785,48,1
+3,102,44,20,94,30.8,0.4,26,0
+1,109,58,18,116,28.5,0.219,22,0
+9,140,94,0,0,32.7,0.734,45,1
+13,153,88,37,140,40.6,1.174,39,0
+12,100,84,33,105,30.0,0.488,46,0
+1,147,94,41,0,49.3,0.358,27,1
+1,81,74,41,57,46.3,1.096,32,0
+3,187,70,22,200,36.4,0.408,36,1
+6,162,62,0,0,24.3,0.178,50,1
+4,136,70,0,0,31.2,1.182,22,1
+1,121,78,39,74,39.0,0.261,28,0
+3,108,62,24,0,26.0,0.223,25,0
+0,181,88,44,510,43.3,0.222,26,1
+8,154,78,32,0,32.4,0.443,45,1
+1,128,88,39,110,36.5,1.057,37,1
+7,137,90,41,0,32.0,0.391,39,0
+0,123,72,0,0,36.3,0.258,52,1
+1,106,76,0,0,37.5,0.197,26,0
+6,190,92,0,0,35.5,0.278,66,1
+2,88,58,26,16,28.4,0.766,22,0
+9,170,74,31,0,44.0,0.403,43,1
+9,89,62,0,0,22.5,0.142,33,0
+10,101,76,48,180,32.9,0.171,63,0
+2,122,70,27,0,36.8,0.34,27,0
+5,121,72,23,112,26.2,0.245,30,0
+1,126,60,0,0,30.1,0.349,47,1
+1,93,70,31,0,30.4,0.315,23,0
